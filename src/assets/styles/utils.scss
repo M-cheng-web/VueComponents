@@ -1,0 +1,67 @@
+@import "./variables.scss";
+
+// 溢出部分省略号显示
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  width: 100%;
+}
+
+// text-align -------------------------------------------------------------------
+.ta-left {
+  text-align: left;
+}
+
+.ta-center {
+  text-align: center;
+}
+
+.ta-right {
+  text-align: right;
+}
+
+// flex -------------------------------------------------------------------
+.d-flex {
+  display: flex;
+}
+
+.jc-around {
+  @extend .d-flex;
+  justify-content: space-around;
+}
+
+.jc-between {
+  @extend .d-flex;
+  justify-content: space-between;
+}
+
+.ai-center {
+  align-items: center;
+}
+
+// 水平两端靠齐, 垂直居中
+.flex-between {
+  @extend .jc-between, .ai-center;
+}
+
+// 水平平均分配, 垂直居中
+.flex-around {
+  @extend .jc-around, .ai-center;
+}
+
+// 边框 -----------------------------------------------------------------------
+@each $color-key, $color-val in $border-colors {
+  .bd-#{$color-key} {
+    border: 1px solid $color-val;
+  }
+
+  @each $type-key, $type-val in $direction-type {
+    .b#{$type-key}-#{$color-key} {
+      border-#{$type-val}: 1px solid $color-val;
+    }
+  }
+}
+
+
