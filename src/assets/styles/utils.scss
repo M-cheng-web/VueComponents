@@ -9,17 +9,9 @@
   width: 100%;
 }
 
-// text-align -------------------------------------------------------------------
-.ta-left {
-  text-align: left;
-}
-
-.ta-center {
-  text-align: center;
-}
-
-.ta-right {
-  text-align: right;
+// 相对于父级居中
+.m-auto {
+  margin: 0 auto;
 }
 
 // flex -------------------------------------------------------------------
@@ -64,4 +56,49 @@
   }
 }
 
+// 字体尺寸 --------------------------------------------------------------------
+@each $size-key, $size-val in $font-size {
+  .fs-#{$siize-key} {
+    font-size: $size-val;
+  }
+}
 
+// 字体色 / 背景色 -------------------------------------------------------------
+@each $color-key, $color-val in $colors {
+  .c-#{$color-key} {
+    color: $color-val
+  }
+
+  .bgc-#{$color-key} {
+    background-color: $color-val;
+  }
+}
+
+// 内外边距 --------------------------------------------------------------------
+@each $type-key, $type-val in $spacing-type {
+
+  // m-0 / p-0
+  @each $size-key, $size-val in $spacing-size {
+    .#{$type-key}-#{$size-key} {
+      #{$type-val}: $size-val
+    }
+  }
+
+  // mx-0 / my-0 / px-0 / py-0
+  @each $size-key, $size-val in $spacing-size {
+    .#{$type-key}x-#{$size-key} {
+      #{$type-val}-left: $size-val;
+      #{$type-val}-right: $size-val
+    }
+  }
+
+  // mt-0 / mr-0 / mb-0 / ml-0
+  // pt-0 / pr-0 / pb-0 / pl-0
+  @each $dir-key, $dir-val in $direction-type {
+    @each $size-key, $size-val in $spacing-size {
+      .#{$type-key}#{$dir-key}-#{$size-key} {
+        #{$type-val}-#{$dir-val}: $size-val
+      }
+    }
+  }
+}

@@ -19,6 +19,7 @@
 
 // -----------------------------------------------公共使用
 
+// 宽度 / 高度
 @mixin  size($width, $height, $tage: 0) {
   @if $tage == 0 {
     width: $width + 'px';
@@ -39,3 +40,9 @@
 }
 // @include($width: 11, $height: 22)
 // @include(11, 22)
+
+// 内部 水平 / 垂直 居中
+@mixin center($height) {
+  text-align: center;
+  line-height: $height;
+}
