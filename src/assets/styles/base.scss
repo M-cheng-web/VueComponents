@@ -1,0 +1,55 @@
+html {
+  min-width: 1440px;
+}
+
+body {
+  font-size: map-get($font-size, 'xxs');
+  color: map-get($colors, 'black');
+  background-color: map-get($colors, 'white')
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+button,
+input,
+keygen,
+legend,
+select,
+textarea {
+  border: none;
+  outline: none; // 设置四个边框的样式为 none
+  vertical-align: middle; // 垂直居中 也可以向上靠齐或者向下
+}
+
+a {
+  color: $c-default;
+  text-decoration: none; // 取消下划线
+}
+
+ol,
+li {
+  list-style: none; // 取消点
+}
