@@ -9,8 +9,12 @@ export default [
     redirect: '/home'
   },
   {
-    path: '/home',
+    path: '/home/:id?',
     name: 'Home',
-    component: Home
+    component: Home,
+    alias: '/b',
+    meta: {
+      req: true
+    }
   }
 ]

@@ -7,8 +7,8 @@ import store from './store'
 import SvgIcon from './components/SvgIcon' // 阿里 svg图片展示
 
 // ------------------------------------------------------ 引入资源
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/svg' // svg图
 
 // ------------------------------------------------------ 引入模块
