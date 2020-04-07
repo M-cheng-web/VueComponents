@@ -14,8 +14,8 @@ export default {
     }
   },
   created () {
-    console.log(this.$route.params)
-    console.log(this.$route.query)
+    // console.log(this.$route.params)
+    // console.log(this.$route.query)
   },
   components: {
     ActionInput
