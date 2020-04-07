@@ -1,14 +1,24 @@
 <template>
   <div class="home">
-    {{ $route.params.id }}
+    <action-input v-model="val" />
   </div>
 </template>
 
 <script>
+import ActionInput from '../../components/Input/ActionInput'
+
 export default {
+  data () {
+    return {
+      val: 10
+    }
+  },
   created () {
     console.log(this.$route.params)
     console.log(this.$route.query)
+  },
+  components: {
+    ActionInput
   }
 }
 </script>
@@ -17,7 +27,12 @@ export default {
 .home {
   width: 100%;
   height: 500px;
-  background-color: red;
   font-size: 90px;
+  border: 1px solid red;
+  .action-input {
+    position: relative;
+    top: 50%;
+    margin: 0 auto;
+  }
 }
 </style>
