@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <action-input v-model="val" />
+    <action-input v-model="val" onFocusClear getFocus />
   </div>
 </template>
 

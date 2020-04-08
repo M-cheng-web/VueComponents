@@ -1,7 +1,12 @@
 <template>
   <div class="action-input">
     <button @click="minus" />
-    <input v-model="inputData" @input="onInput($event)" />
+    <input
+      v-focus="{getFocus, onFocusClear}"
+      v-model="inputData"
+      @input="onInput($event)"
+      @focus="onFocus"
+      @blur="onBlur" />
     <button @click="add" />
   </div>
 </template>
@@ -17,7 +22,11 @@ export default {
 
     min: { type: Number, default: 0 }, // 设置最小值  默认最小 0
 
-    onClear: { type: Boolean, default: false } // 获取焦点时清空输入框内值 默认为 false
+    getFocus: { type: Boolean, default: false }, // 是否自动获取焦点
+
+    onFocusClear: { type: Boolean, default: false }, // 获取焦点时 设置输入框内值为0 默认为 false
+
+    onBlurClear: { type: Boolean, default: false } // 失去焦点时 设置输入框内值为0 默认为 false
   },
   data () {
     return {
@@ -45,6 +54,13 @@ export default {
       immediate: true
     }
   },
+  directives: {
+    focus: {
+      inserted (el, { value, onFocusClear }) {
+        value && el.focus()
+      }
+    }
+  },
   methods: {
     // 减
     minus () {
@@ -66,6 +82,14 @@ export default {
     // 输入框输入
     onInput (e) {
       this.$emit('input', parseFloat(e.target.value))
+    },
+    // 获取焦点事件
+    onFocus () {
+      this.onFocusClear && this.$emit('input', 0)
+    },
+    // 失去焦点事件
+    onBlur () {
+      this.onBlurClear && this.$emit('input', 0)
     },
     // 得到用户手动输入的数值有几位小数后
     // 返回对应的小数 1 返回 0.1  2 返回 0.2
