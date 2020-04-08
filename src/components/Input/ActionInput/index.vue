@@ -2,7 +2,7 @@
   <div class="action-input">
     <button @click="minus" />
     <input
-      v-focus="{getFocus, onFocusClear}"
+      v-focus="getFocus"
       v-model="inputData"
       @input="onInput($event)"
       @focus="onFocus"
@@ -56,7 +56,7 @@ export default {
   },
   directives: {
     focus: {
-      inserted (el, { value, onFocusClear }) {
+      inserted (el, { value }) {
         value && el.focus()
       }
     }
@@ -85,7 +85,7 @@ export default {
     },
     // 获取焦点事件
     onFocus () {
-      this.onFocusClear && this.$emit('input', 0)
+      this.onFocusClear && this.getFocus && this.$emit('input', 0)
     },
     // 失去焦点事件
     onBlur () {
