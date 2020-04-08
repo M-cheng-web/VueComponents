@@ -1,16 +1,17 @@
 <template>
   <div class="home">
-    <action-input v-model="val" onFocusClear getFocus />
+    <char-input v-model="val" placeChar="请输入价格" />
   </div>
 </template>
 
 <script>
-import ActionInput from '../../components/Input/ActionInput'
+// import ActionInput from '../../components/Input/ActionInput'
+import CharInput from '../../components/Input/CharInput'
 
 export default {
   data () {
     return {
-      val: 10
+      val: 0
     }
   },
   created () {
@@ -18,7 +19,8 @@ export default {
     // console.log(this.$route.query)
   },
   components: {
-    ActionInput
+    // ActionInput,
+    CharInput
   }
 }
 </script>
@@ -29,7 +31,7 @@ export default {
   height: 500px;
   font-size: 90px;
   border: 1px solid red;
-  .action-input {
+  .char-input {
     position: relative;
     top: 50%;
     margin: 0 auto;
