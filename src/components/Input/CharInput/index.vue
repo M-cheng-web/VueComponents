@@ -1,8 +1,17 @@
 <template>
-  <div class="action-input">
-    <button @click="minus" />
-    <input v-focus="getFocus" v-model="inputData" @input="onInput($event)" @focus="onFocus" />
-    <button @click="add" />
+  <div class="char-input" :style="charStyle" @click="onDivFocus">
+    <div v-if="leftChar">{{ leftChar }}</div>
+    <input
+      ref="_input"
+      v-focus="getFocus"
+      v-model="inputData"
+      :placeholder="placeChar"
+      :type="labelInput ? 'number' : 'text'"
+      :disabled="disabled"
+      @input="onInput($event)"
+      @focus="onFocus"
+    />
+    <div v-if="rightChar">{{ rightChar }}</div>
   </div>
 </template>
 
@@ -11,17 +20,29 @@ export default {
   props: {
     value: { type: Number }, // 初始值 用于v-model
 
-    step: { type: Number }, // 设置加减步数 格式为 0.01 不设置则跟随用户输入自动加减
+    font: { type: Number, default: 24 }, // 字体大小
+
+    leftChar: { type: String }, // 框左侧文字
+
+    rightChar: { type: String }, // 框右侧文字
+
+    placeChar: { type: String }, // 提示文字
+
+    step: { type: Number, default: 1 }, // 设置加减步数
 
     max: { type: Number }, // 设置最大值  不设置则无最大值
 
-    min: { type: Number, default: 0 }, // 设置最小值  默认最小 0
+    min: { type: Number }, // 设置最小值  不设置则无最小值
 
-    maxDigit: { type: Number, default: 6 }, // 设置最大小数位 默认 4位
+    maxDigit: { type: Number, default: 6 }, // 设置最大小数位
 
     getFocus: { type: Boolean, default: false }, // 是否自动获取焦点
 
-    onFocusClear: { type: Boolean, default: false } // 获取焦点时 设置输入框内值为0 默认为 false
+    onFocusClear: { type: Boolean, default: false }, // 获取焦点时 设置输入框内值为 0
+
+    disabled: { type: Boolean, default: false }, // 禁止输入框
+
+    labelInput: { type: Boolean, default: false } // 使用带上下标签的输入框
   },
   data () {
     return {
@@ -69,6 +90,16 @@ export default {
     }
   },
   methods: {
+    // 点击 div 更改input为选中状态
+    onDivFocus () {
+      this.$refs._input.focus()
+    },
+    // 最外层 div添加 style
+    charStyle () {
+      const fontSize = `font-size:${this.font}px;`
+      return fontSize
+    },
+
     // 减
     minus () {
       let minusData = this.inputData ? this.inputData : 0
@@ -257,12 +288,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.action-input {
+.char-input {
   display: flex;
   align-items: center;
-  width: 300px;
-  font-size: 20px;
+  width: 400px;
   color: black;
+  border: 1px solid #747d8c;
 
   input {
     flex: 1;

@@ -1,16 +1,17 @@
 <template>
   <div class="home">
-    <action-input v-model="val" onFocusClear getFocus />
+    <char-input v-model="val" leftChar="介绍" />
   </div>
 </template>
 
 <script>
-import ActionInput from '../../components/Input/ActionInput'
+// import ActionInput from '../../components/Input/ActionInput'
+import CharInput from '../../components/Input/CharInput'
 
 export default {
   data () {
     return {
-      val: 10
+      val: 5
     }
   },
   created () {
@@ -18,7 +19,8 @@ export default {
     // console.log(this.$route.query)
   },
   components: {
-    ActionInput
+    // ActionInput,
+    CharInput
   }
 }
 </script>
