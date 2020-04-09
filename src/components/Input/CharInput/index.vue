@@ -14,6 +14,7 @@
       @blur="onDivBlur"
     />
     <div v-if="rightChar">{{ rightChar }}</div>
+    <div v-show="maxIsWrong || minIsWrong" class="wrong">{{ wrongText }}</div>
   </div>
 </template>
 
@@ -32,13 +33,19 @@ export default {
 
     placeChar: { type: String }, // 提示文字
 
-    step: { type: Number }, // 设置加减步数 设置了则自带上下标签
+    step: { type: Number }, // 加减步数 设置了则自带上下标签
 
-    max: { type: Number }, // 设置最大值  不设置则无最大值
+    max: { type: Number }, // 强制最大值
 
-    min: { type: Number }, // 设置最小值  不设置则无最小值
+    min: { type: Number }, // 强制最小值
 
-    maxDigit: { type: Number, default: 6 }, // 设置最大小数位
+    wrongMax: { type: Number }, // 最大值警告 （和 max 相斥）需要通过 ref拿 maxIsWrong 判断是否警告
+
+    wrongMin: { type: Number }, // 最小值警告 （和 min 相斥）需要通过 ref拿 minIsWrong 判断是否警告
+
+    wrongText: { type: String, default: '超出最大值或最小值，请重新填写' }, // 警告文本
+
+    maxDigit: { type: Number, default: 6 }, // 最大小数位
 
     getFocus: { type: Boolean, default: false }, // 是否自动获取焦点
 
@@ -47,7 +54,9 @@ export default {
   data () {
     return {
       inputData: 0,
-      isAction: this.getFocus
+      isAction: this.getFocus,
+      maxIsWrong: false,
+      minIsWrong: false
     }
   },
   computed: {
@@ -55,7 +64,11 @@ export default {
     charStyle () {
       const fontSize = `font-size:${this.size}px;`
       const color = `color:${this.color};`
-      return fontSize + color
+      const border =
+        (this.maxIsWrong || this.minIsWrong)
+          ? 'border: 1px solid red;'
+          : ''
+      return fontSize + color + border
     },
     // input 添加 style
     inputStyle () {
@@ -99,6 +112,9 @@ export default {
       const reg = e.target.value.match(regs)
       if (reg) {
         this.inputData = reg[0]
+        this.maxIsWrong = this.wrongMax && this.inputData > this.wrongMax // 判断是否大于警告的最大值
+        this.minIsWrong = this.wrongMin && this.inputData < this.wrongMin // 判断是否小于于警告的最小值
+
         if (this.max && this.inputData > this.max) { // 判断是否大于最大值
           this.inputData = this.max
           return
@@ -120,7 +136,8 @@ export default {
 .char-input {
   display: flex;
   align-items: baseline;
-  width: 400px;
+  position: relative;
+  max-width: 400px;
   color: black;
   border-radius: 6px;
   padding-left: 5px;
@@ -135,9 +152,18 @@ export default {
   input:disabled {
     background-color: #fff;
   }
+
+  .wrong {
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    z-index: 200;
+    color: red;
+    font-size: 14px;
+    margin-top: 6px;
+  }
 }
 .div-action {
-  background-color: #fff;
   border: 1px solid #0c49c0;
 }
 .div-no-action {

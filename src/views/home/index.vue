@@ -1,17 +1,16 @@
 <template>
   <div class="home">
-    <char-input v-model="val" placeChar="请输入价格" />
+    <loop :value="val" />
   </div>
 </template>
 
 <script>
-// import ActionInput from '../../components/Input/ActionInput'
-import CharInput from '../../components/Input/CharInput'
+import Loop from '../../components/Loop'
 
 export default {
   data () {
     return {
-      val: 0
+      val: ['我是周杰伦', '我是藤原某某', '我是周星驰']
     }
   },
   created () {
@@ -19,8 +18,7 @@ export default {
     // console.log(this.$route.query)
   },
   components: {
-    // ActionInput,
-    CharInput
+    Loop
   }
 }
 </script>
@@ -31,7 +29,7 @@ export default {
   height: 500px;
   font-size: 90px;
   border: 1px solid red;
-  .char-input {
+  .loop {
     position: relative;
     top: 50%;
     margin: 0 auto;
