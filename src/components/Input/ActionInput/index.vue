@@ -15,7 +15,7 @@ export default {
 
     max: { type: Number }, // 设置最大值  不设置则无最大值
 
-    min: { type: Number, default: 0 }, // 设置最小值  默认最小 0
+    min: { type: Number }, // 设置最小值  不设置则无最小值
 
     maxDigit: { type: Number, default: 6 }, // 设置最大小数位 默认 4位
 
@@ -98,7 +98,7 @@ export default {
           this.inputData = this.max
           return
         }
-        if (this.inputData < this.min) { // 判断是否小于最小值
+        if (this.min && this.inputData < this.min) { // 判断是否小于最小值
           this.inputData = this.min
           return
         }
