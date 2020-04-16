@@ -1,10 +1,12 @@
 <template>
-  <div class="left"></div>
+  <div class="left">aaa</div>
 </template>
 
 <script>
 export default {
-
+  created () {
+    throw new Error('yy')
+  }
 }
 </script>
 

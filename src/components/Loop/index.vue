@@ -70,8 +70,7 @@ export default {
   },
 
   created () {
-    throw new Error('发生错误了')
-    // setInterval(this.resetVal, this.stopTime * 1000)
+    setInterval(this.resetVal, this.stopTime * 1000)
   },
 
   methods: {
