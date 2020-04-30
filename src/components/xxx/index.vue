@@ -7,11 +7,11 @@
 <script>
 export default {
   props: {
-    cc: { type: String }
+    cc: { defaukt: 0 }
   },
   methods: {
     sss () {
-      this.$emit('cl', this.cc)
+      this.$emit('update:cc', 3)
     }
   }
 }

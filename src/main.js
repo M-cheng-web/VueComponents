@@ -24,8 +24,28 @@ Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
+// console.log(App)
+
+// new Vue({
+//   router,
+//   store,
+//   render: h => {
+//     const root = h(App)
+//     console.log(root)
+//     return h(App)
+//   }
+// }).$mount('#app')
+
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+
+// const a = new Vue({
+//   el: '#app',
+//   router,
+//   store,
+//   render: h => h(App)
+// })
+// console.log(a.$mount)

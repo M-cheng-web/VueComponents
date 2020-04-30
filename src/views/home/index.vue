@@ -1,9 +1,12 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <xxx :name.sync="cc" />
+  </div>
 </template>
 
 <script>
 import './jsWork.js'
+import xxx from '../../components/xxx'
 
 export default {
   data () {
@@ -21,8 +24,13 @@ export default {
       sss: [
         1, 2, 3
       ],
-      yyy: { a: 1, b: 2 }
+      yyy: { a: 1, b: 2 },
+      cc: 2
     }
+  },
+
+  components: {
+    xxx
   },
 
   created () {
