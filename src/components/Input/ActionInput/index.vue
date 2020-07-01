@@ -1,15 +1,23 @@
 <template>
-  <div class="action-input">
+  <view class="action-input">
     <button @click="minus" />
-    <input v-focus="getFocus" v-model="inputData" @input="onInput($event)" @focus="onFocus" />
+    <input
+      type="number"
+      v-model="inputData"
+      @input="onInput($event)"
+      @focus="onFocus"
+      :placeholder="String(placeholder)"
+    />
     <button @click="add" />
-  </div>
+  </view>
 </template>
 
 <script>
 export default {
   props: {
     value: { type: Number }, // 初始值 用于v-model
+
+    placeholder: { type: Number, default: () => 0 }, // placeholder
 
     step: { type: Number }, // 设置加减步数 格式为 0.01 不设置则跟随用户输入自动加减
 
@@ -19,14 +27,15 @@ export default {
 
     maxDigit: { type: Number, default: 6 }, // 设置最大小数位 默认 4位
 
-    getFocus: { type: Boolean, default: false }, // 是否自动获取焦点
+    onFocusClear: { type: Boolean, default: false }, // 获取焦点时 设置输入框内值为0 默认为 false
 
-    onFocusClear: { type: Boolean, default: false } // 获取焦点时 设置输入框内值为0 默认为 false
+    onButtSetHolder: { type: Boolean, default: false }, // 点击 button时 placeholder的值自动赋值给 v-model 且+1
   },
   data () {
     return {
-      inputData: 0,
-      thisGetFocus: false
+      inputData: 0, // 输入框显示值
+      thisGetFocus: false, // input是否获取焦点
+      isSetHolder: true // 是否要在点击 + / - 后将 placeholder的值赋值给 v-model再进行加减
     }
   },
   computed: {
@@ -46,52 +55,48 @@ export default {
     value: {
       handler (val) {
         val === 0
-          ? this.inputData = ''
+          ? this.inputData = undefined
           : this.inputData = val
       },
       immediate: true
-    },
-    getFocus: {
-      // 绑定 getFocus 实现第一次不清零效果
-      handler (val) {
-        this.thisGetFocus = val
-      },
-      immediate: true
-    }
-  },
-  directives: {
-    focus: {
-      inserted (el, { value }) {
-        value
-          ? el.focus()
-          : el.blur()
-      }
     }
   },
   methods: {
     // 减
     minus () {
       let minusData = this.inputData ? this.inputData : 0
-      if (minusData === this.min) {
-        return
+
+      if (this.onButtSetHolder && this.isSetHolder) {
+        let len = this.getDigitNum(this.placeholder.toString().split('.')[1].length) // 需要 + / - 的步数 ps:0.01
+        minusData = this.floatMinus(this.placeholder, len)
+        this.isSetHolder = false
+      } else {
+        if (minusData === this.min) return
+        minusData = this.floatMinus(minusData, this.step || this.digit)
       }
-      minusData = this.floatMinus(minusData, this.step || this.digit)
+
       this.$emit('input', minusData)
     },
     // 加
     add () {
       let addData = this.inputData ? parseFloat(this.inputData) : 0
-      if (this.max && addData === this.max) {
-        return
+
+      if (this.onButtSetHolder && this.isSetHolder) {
+        let len = this.getDigitNum(this.placeholder.toString().split('.')[1].length) // 需要 + / - 的步数 ps:0.01
+        addData = this.floatAdd(this.placeholder, len)
+        this.isSetHolder = false
+      } else {
+        if (this.max && addData === this.max) return
+        addData = this.floatAdd(addData, this.step || this.digit)
       }
-      addData = this.floatAdd(addData, this.step || this.digit)
+
       this.$emit('input', addData)
     },
     // 输入框输入
     onInput (e) {
+      this.isSetHolder = false // 输入框输入了再点击 + / - 就不会再将 placeholder赋值
       var regs = new RegExp('^\\-?\\d{0,}\\.?\\d{0,' + this.maxDigit + '}$', 'g')
       const reg = e.target.value.match(regs)
-      console.log(reg)
       if (reg) {
         this.inputData = reg[0] || 0
         if (this.max && this.inputData > this.max) { // 判断是否大于最大值
@@ -260,13 +265,12 @@ export default {
 .action-input {
   display: flex;
   align-items: center;
-  width: 300px;
-  font-size: 20px;
-  color: black;
+  font-size: 24rpx;
+  color: #fff;
 
   input {
     flex: 1;
-    margin: 0 12px;
+    margin: 0 24rpx;
     text-align: center;
   }
 
@@ -274,32 +278,36 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30px;
+    width: 60rpx;
+    position: relative;
+    padding: 0;
 
     &::before {
       content: "";
-      height: 2px;
-      width: 12px;
-      background-color: #000;
+      height: 4rpx;
+      width: 24rpx;
+      background-color: #fff;
     }
 
     &:last-child {
       &::after {
         content: "";
-        height: 2px;
-        width: 12px;
-        background-color: #000;
+        height: 4rpx;
+        width: 24rpx;
+        background-color: #fff;
         position: absolute;
-        transform: rotate(90deg);
+        left: 50%;
+        top: 50%;
+        transform: rotate(90deg) translate(-50%, -50%);
       }
     }
   }
 
   input,
   button {
-    background-color: #f8f8ff;
-    border: 1px solid black;
-    height: 30px;
+    background-color: transparent;
+    border: 1rpx solid #fff;
+    height: 60rpx;
   }
 }
 </style>
