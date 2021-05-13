@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     aa () {
-      console.log(11);
+      console.log(11)
       return this.a
     }
   }
