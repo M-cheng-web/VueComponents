@@ -10,8 +10,7 @@
 export default {
   data () {
     return {
-      a: 'app',
-      b: 'app'
+      a: 'app'
     }
   },
   computed: {
