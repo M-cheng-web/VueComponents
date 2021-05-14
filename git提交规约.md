@@ -150,12 +150,11 @@ module.exports = {
 ```
 
 # husky
-
+与commitlint配合,会在用户提交时根据规则校验,不符合规则会报错
 ## 安装
 ```
 npm install -D husky@4.3.8
 ```
-
 ```
 ### packgae.json
 
@@ -165,7 +164,13 @@ npm install -D husky@4.3.8
   }
 }
 ```
+## 使用
+例子:
+```
+git commit -m 'cccc' // 报错
 
+git commit -m 'fix: asdasd' // 正确
+```
 
 
 
