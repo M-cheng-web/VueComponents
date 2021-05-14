@@ -21,9 +21,9 @@ npm i -g commitizen cz-conventional-changelog
 ### package.json
 
 "config":{
-    "commitizen":{
-        "path":"node_modules/cz-conventional-changelog"
-    }
+  "commitizen":{
+    "path":"node_modules/cz-conventional-changelog"
+  }
 }
 ```
 ## 全局安装
@@ -39,7 +39,7 @@ npm i -g commitizen cz-conventional-changelog
 ### package.json
 
 "scripts":{
-    "commit":"git-cz"
+  "commit":"git-cz"
 }
 ```
 ## 使用
