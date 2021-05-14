@@ -1,21 +1,15 @@
 'use strict';
 module.exports = {
   types: [
-    { value: 'init', name: 'init:     初始提交' },
-    { value: 'feat', name: 'feat:     增加新功能' },
-    { value: 'fix', name: 'fix:      修复bug' },
-    { value: 'ui', name: 'ui:       更新UI' },
-    { value: 'refactor', name: 'refactor: 代码重构' },
-    { value: 'release', name: 'release:  发布' },
-    { value: 'deploy', name: 'deploy:   部署' },
-    { value: 'docs', name: 'docs:     修改文档' },
-    { value: 'test', name: 'test:     增删测试' },
-    { value: 'chore', name: 'chore:    更改配置文件' },
-    { value: 'style', name: 'style:    样式修改不影响逻辑' },
-    { value: 'revert', name: 'revert:   版本回退' },
-    { value: 'add', name: 'add:      添加依赖' },
-    { value: 'minus', name: 'minus:    版本回退' },
-    { value: 'del', name: 'del:      删除代码/文件' }
+    {value: '✨特性',     name: '特性:    一个新的特性'},
+    {value: '🐛修复',     name: '修复:    修复一个Bug'},
+    {value: '📝文档',     name: '文档:    变更的只有文档'},
+    {value: '💄格式',     name: '格式:    空格, 分号等格式修复'},
+    {value: '♻️重构',     name: '重构:    代码重构，注意和特性、修复区分开'},
+    {value: '⚡️性能',     name: '性能:    提升性能'},
+    {value: '✅测试',     name: '测试:    添加一个测试'},
+    {value: '🔧工具',     name: '工具:    开发工具变动(构建、脚手架工具等)'},
+    {value: '⏪回滚',     name: '回滚:    代码回退'}
   ],
   scopes: [],
   messages: {
