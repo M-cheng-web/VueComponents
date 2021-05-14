@@ -1,7 +1,6 @@
 module.exports = {
   extends: [
-    '@commitlint/config-conventional',
-    'cz'
+    '@commitlint/config-conventional'
   ],
   rules: {
     // Header 
