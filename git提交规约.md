@@ -111,8 +111,7 @@ rule由name和配置数组组成，如：'name':[0, 'always', 72]<br>
 
 module.exports = {
   extends: [
-    '@commitlint/config-conventional', // 代表默认的配置或者是 .commitlintrc.js中的配置
-    'cz' // 代表应用的是自定义的提交规范 .cz-config.js中的配置
+    '@commitlint/config-conventional'
   ],
   rules: {
     // Header 
@@ -135,18 +134,12 @@ module.exports = {
       'minus',
       'del'
     ]],
-    // <type> 不能为空
-    'type-empty': [2, 'never'],
-    // <type> 格式 小写 
-    'type-case': [2, 'always', 'lower-case'],
-    // <scope> 不能为空
-    'scope-empty': [2, 'never'],
-    // <scope> 格式 小写
-    'scope-case': [2, 'always', 'lower-case'],
-    // <subject> 不能为空
-    'subject-empty': [2, 'never'],
-    // <subject> 以.为结束标志
-    'subject-full-stop': [2, 'never', '.'],
+    'type-empty': [2, 'never'], // <type> 不能为空
+    'type-case': [2, 'always', 'lower-case'], // <type> 格式 小写 
+    'scope-empty': [2, 'never'], // <scope> 不能为空
+    'scope-case': [2, 'always', 'lower-case'], // <scope> 格式 小写
+    'subject-empty': [2, 'never'], // <subject> 不能为空
+    'subject-full-stop': [2, 'never', '.'], // <subject> 以.为结束标志
     // <subject> 格式
     // 可选值
     // 'lower-case' 小写 lowercase
@@ -158,10 +151,8 @@ module.exports = {
     // 'snake-case' 下划线 snake_case
     // 'start-case' 所有首字母大写 start-case
     'subject-case': [2, 'never', []],
-    // <body> 以空行开头
-    'body-leading-blank': [1, 'always'],
-    // <footer> 以空行开头
-    'footer-leading-blank': [1, 'always']
+    'body-leading-blank': [1, 'always'], // <body> 以空行开头
+    'footer-leading-blank': [1, 'always'] // <footer> 以空行开头
   }
 }
 ```
