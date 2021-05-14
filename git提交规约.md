@@ -325,7 +325,7 @@ npm install -g conventional-changelog-cli
 这个时候会在项目根目录出现一个CHANGELOG.md文档(PS:如果你的提交不规范,那么在最开始使用的时候这个文档可能什么都没有)
 
 ## 作者疑问
-CHANGELOG.md内永远不会有本次push记录,这个怎么解决
+<font color=red>CHANGELOG.md内永远不会有本次push记录,这个怎么解决<font>
 
 # 推荐的工作流
 1. 改动代码
@@ -335,3 +335,11 @@ CHANGELOG.md内永远不会有本次push记录,这个怎么解决
 5. 提交 package.json和CHANGELOG.md文件
 6. 创建tag
 7. push代码
+
+**version 运用**
+```
+npm version prerelease -m "这里你可以添加此次更新版本号的描述"
+```
+执行完之后，package.json的版本号则会变成1.1.1-0，同时，在git中会多一个commit log<br>
+<font color=red>更改版本号会自动commit,而这个commit会被husky拦截,所以要找解决方案(可以在被拦截报错后手动提交)<font>
+注意的是，执行npm version必须保证工作目录是干净的，没有任何未提交的文档，否则会报错
