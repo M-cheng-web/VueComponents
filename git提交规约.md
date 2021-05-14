@@ -93,7 +93,7 @@ chore:    不修改src或者test的其余修改,例如构建过程或辅助工�
 
 
 # commitlint 校验
-一般情况下默认的规则足够了,但可以自定义规则
+一般情况下默认的规则足够了,但可以自定义规则,一般和husky配合使用
 
 ## 安装
 在项目根目录创建commitlint.config.js 或者 .commitlintrc.js
@@ -179,27 +179,18 @@ git commit -m 'cccc' // 报错
 
 git commit -m 'fix: asdasd' // 正确
 ```
-
-
-
-
-
-
-
-
-
-
+## 番外
+husky已经有最新V6版本,但是配置跨度比较大且应用需要有shell基础,作者尝试失败<br>
+如果有新版本尝试成功的期待补充
 
 # 自定义提交样式 / 规范(推荐)
 如果不适应git cz后的样式/英文,我们可以汉化并且自定义提交样式<br>
 配置后直接执行git cz可以看到效果
 ## 安装
 在项目根目录创建.cz-config.js
-
 ```
 npm i -D  cz-customizable
 ```
-
 ```
 ### package.json(这样更改并不会影响commitizen的相关配置)
 
@@ -209,7 +200,63 @@ npm i -D  cz-customizable
   }
 }
 ```
+```
+### .cz-config.js
 
+'use strict';
+module.exports = {
+  // 项目中使用的 type 和默认描述
+  types: [
+    {      value: 'init',      name: 'init:     初始提交'    },
+    {      value: 'feat',      name: 'feat:     增加新功能'    },
+    {      value: 'fix',      name: 'fix:      修复bug'    },
+    {      value: 'ui',      name: 'ui:       更新UI'    },
+    {      value: 'refactor',      name: 'refactor: 代码重构'    },
+    {      value: 'release',      name: 'release:  发布'    },
+    {      value: 'deploy',      name: 'deploy:   部署'    },
+    {      value: 'docs',      name: 'docs:     修改文档'    },
+    {      value: 'test',      name: 'test:     增删测试'    },
+    {      value: 'chore',      name: 'chore:    更改配置文件'    },
+    {      value: 'style',      name: 'style:    样式修改不影响逻辑'    },
+    {      value: 'revert',      name: 'revert:   版本回退'    },
+    {      value: 'add',      name: 'add:      添加依赖'    },
+    {      value: 'minus',      name: 'minus:    版本回退'    },
+    {      value: 'del',      name: 'del:      删除代码/文件'    }
+  ],
+  // 预设项目中使用的可选 scope 
+  scopes: [
+    { name: '模块1' },
+    { name: '模块2' },
+    { name: '模块3' },
+    { name: '模块4' }
+  ],
+  // 当想重写特定提交类型的作用域时，使用此方法 如：在类型为“fix”时指定范围
+  // scopeOverrides: {
+  //   fix: [
+  //     { name: 'merge' },
+  //     { name: 'style' },
+  //     { name: 'e2eTest' },
+  //     { name: 'unitTest' }
+  //   ]
+  // },
+  messages: {
+    type: '选择更改类型:\n',
+    scope: '更改范围 (可选):\n',
+    customScope: 'Denote the SCOPE of this change:',
+    subject: '简短描述:\n',
+    body: '详细描述,使用"|"换行(可选)：\n',
+    breaking: '非兼容性说明(可选):\n',
+    footer: '关联关闭的issue,例如：#31, #34(可选):\n',
+    confirmCommit: '确定提交?'
+  },
+  allowCustomScopes: true, // 增加自定义 scope 选项
+  // allowBreakingChanges: ['特性', '修复'], // 配置想要 breaking change 弹出提示的scope列表
+  subjectLimit: 100 // 限制主题长度
+};
+```
+
+网文汉化版,但是不能正常使用,会一直被commitlint检测报错subject为空,作者尝试失败<br>
+有兴趣的可以试试
 ```
 ### .cz-config.js
 
@@ -259,3 +306,32 @@ module.exports = {
 };
 ```
 
+# 自动生成change log
+## 安装
+```
+npm install -g conventional-changelog-cli
+```
+```
+### package.json
+
+{
+  "scripts": {
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s" 
+  } 
+}
+```
+## 使用
+运行`npm run changelog`就行<br>
+这个时候会在项目根目录出现一个CHANGELOG.md文档(PS:如果你的提交不规范,那么在最开始使用的时候这个文档可能什么都没有)
+
+## 作者疑问
+CHANGELOG.md内永远不会有本次push记录,这个怎么解决
+
+# 推荐的工作流
+1. 改动代码
+2. 提交这些改动
+3. 改变package.json中的版本号
+4. 使用conventional-changelog工具
+5. 提交 package.json和CHANGELOG.md文件
+6. 创建tag
+7. push代码
