@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -60,11 +61,6 @@
     "> 1%",
     "last 2 versions"
   ],
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
