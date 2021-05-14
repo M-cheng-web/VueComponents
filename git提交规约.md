@@ -149,7 +149,22 @@ module.exports = {
 }
 ```
 
+# husky
 
+## 安装
+```
+npm install -D husky@4.3.8
+```
+
+```
+### packgae.json
+
+"husky": {
+  "hooks": {
+    "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+  }
+}
+```
 
 
 
