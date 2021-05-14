@@ -6,12 +6,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "commit": "git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "conventional-changelog-cli": "^2.1.1",
     "core-decorators": "^0.20.0",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.0",
